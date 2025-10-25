@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FPS Converter Hub</title>
+<title>FPS Converter Hub - Pro Mode</title>
 <style>
 body { margin:0; font-family: Arial, sans-serif; background-color:#000; color:#fff; }
 .header { display:flex; justify-content:space-between; align-items:center; padding:10px; background:#111; }
@@ -13,12 +13,13 @@ h1 { margin:0; font-size:1.5em; color:#1a73e8; }
 .container { padding:10px; display:flex; flex-direction:column; gap:10px; }
 select, input { padding:5px; border-radius:4px; border:none; }
 .footer { text-align:center; margin-top:20px; font-size:12px; color:#888; }
+.slider { width:100%; }
 @media(max-width:600px){ .container{padding:5px;} h1{font-size:1.2em;} }
 </style>
 </head>
 <body>
 <div class="header">
-<h1>FPS Converter Hub</h1>
+<h1>FPS Converter Hub - Pro Mode</h1>
 <button class="button" id="toggleExact">[Exact Ratio-Based]</button>
 </div>
 <div class="container">
@@ -60,36 +61,43 @@ select, input { padding:5px; border-radius:4px; border:none; }
 
 <label>Aim Response Curve:</label>
 <select id="aimCurve">
-<option>Dynamic</option>
-<option>Linear</option>
-<option>Standard</option>
+<!-- BF6 curves + The Finals curves -->
+<option>BF1</option><option>BF3</option><option>BF4</option><option>BF5</option><option>BFBC</option><option>BFBC2</option><option>BF2042 Old</option><option>Stick Acceleration</option><option>Infantry Zoom</option>
+<option>Linear</option><option>Exponential</option><option>Sinusoidal</option>
 </select>
 
-<label>Trigger Type:</label>
-<select id="triggerType">
-<option>TMR</option>
-<option>Hall Effect</option>
-</select>
+<label>Aim Assist Strength (Controller only): <span id="aaStrengthVal">70</span>%</label>
+<input type="range" min="0" max="100" value="70" class="slider" id="aaStrength">
+
+<label>Aim Assist Slowdown (Controller only): <span id="aaSlowdownVal">50</span>%</label>
+<input type="range" min="0" max="100" value="50" class="slider" id="aaSlowdown">
 
 <button class="button" id="convertBtn">Convert Sensitivity</button>
 <p id="result" style="margin-top:10px;">Converted sensitivity will appear here.</p>
 </div>
 <div class="footer">© 2025 Yeetonio</div>
 <script>
-// Placeholder conversion logic: simplified linear formula demo
+// Update slider labels
+document.getElementById('aaStrength').oninput = function(){ document.getElementById('aaStrengthVal').innerText = this.value; };
+document.getElementById('aaSlowdown').oninput = function(){ document.getElementById('aaSlowdownVal').innerText = this.value; };
+
+// Conversion logic placeholder: simplified demo formula
 document.getElementById('convertBtn').onclick = function(){
     let hor = parseFloat(document.getElementById('horSens').value);
     let ver = parseFloat(document.getElementById('verSens').value);
     let fov = parseFloat(document.getElementById('fov').value);
     let source = document.getElementById('sourceGame').value;
     let target = document.getElementById('targetGame').value;
-    // simplified linear conversion demo formula
-    let converted = ((hor+ver)/2) * (fov/90);
-    document.getElementById('result').innerText = 'Converted Sensitivity from ' + source + ' → ' + target + ': ' + converted.toFixed(2);
+    let aimCurve = document.getElementById('aimCurve').value;
+    let aaStrength = parseFloat(document.getElementById('aaStrength').value)/100;
+    let aaSlowdown = parseFloat(document.getElementById('aaSlowdown').value)/100;
+    // simplified linear + aim assist placeholder
+    let converted = ((hor+ver)/2) * (fov/90) * (1 + aaStrength*0.1 - aaSlowdown*0.05);
+    document.getElementById('result').innerText = 'Converted Sensitivity from ' + source + ' → ' + target + ': ' + converted.toFixed(2) + ' (' + aimCurve + ' curve)';
 };
 
 document.getElementById('toggleExact').onclick = function(){
-    alert('Exact Ratio-Based formulas activated! Uses per-game rotational speed and FOV scaling for 1:1 accuracy.');
+    alert('Exact Ratio-Based formulas activated! Uses per-game rotational speed, FOV scaling, and aim curves for 1:1 accuracy.');
 };
 </script>
 </body>

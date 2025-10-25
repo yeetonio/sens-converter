@@ -1,5 +1,5 @@
 
-# FPS Converter Hub
+# FPS Converter Hub - Pro Mode
 
 ## How to Host on GitHub Pages
 1. Create a new repository on GitHub (public) or use your existing one.
@@ -14,4 +14,4 @@
 1. Go to your existing GitHub repository where you uploaded the previous version.
 2. Click **Add file → Upload files**, then drag the new `index.html` from this zip.
 3. Click **Commit changes**. This will overwrite the old version.
-4. Refresh your GitHub Pages URL. The new fully functional FPS Converter Hub will now be live.
+4. Refresh your GitHub Pages URL. The new Pro Mode FPS Converter Hub will now be live.
