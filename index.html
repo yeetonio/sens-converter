@@ -22,8 +22,8 @@ select, input { padding:5px; border-radius:4px; border:none; }
 <button class="button" id="toggleExact">[Exact Ratio-Based]</button>
 </div>
 <div class="container">
-<label for="gameSelect">Select Game:</label>
-<select id="gameSelect">
+<label for="sourceGame">Source Game:</label>
+<select id="sourceGame">
 <option>Warzone / MW3</option>
 <option>Battlefield 6</option>
 <option>Valorant</option>
@@ -34,7 +34,19 @@ select, input { padding:5px; border-radius:4px; border:none; }
 <option>The Finals</option>
 </select>
 
-<label for="platformSelect">Platform:</label>
+<label for="targetGame">Target Game:</label>
+<select id="targetGame">
+<option>Warzone / MW3</option>
+<option>Battlefield 6</option>
+<option>Valorant</option>
+<option>CS2</option>
+<option>Rainbow Six Siege</option>
+<option>Fragpunk</option>
+<option>Black Ops 7</option>
+<option>The Finals</option>
+</select>
+
+<label>Platform:</label>
 <select id="platformSelect">
 <option>Controller</option>
 <option>Mouse & Keyboard</option>
@@ -60,21 +72,24 @@ select, input { padding:5px; border-radius:4px; border:none; }
 </select>
 
 <button class="button" id="convertBtn">Convert Sensitivity</button>
-
 <p id="result" style="margin-top:10px;">Converted sensitivity will appear here.</p>
 </div>
 <div class="footer">© 2025 Yeetonio</div>
 <script>
-document.getElementById('toggleExact').onclick = function(){
-    alert('Exact Ratio-Based formulas activated! Uses per-game rotational speed and FOV scaling for 1:1 accuracy.');
-};
+// Placeholder conversion logic: simplified linear formula demo
 document.getElementById('convertBtn').onclick = function(){
     let hor = parseFloat(document.getElementById('horSens').value);
     let ver = parseFloat(document.getElementById('verSens').value);
     let fov = parseFloat(document.getElementById('fov').value);
-    // simplified linear placeholder conversion (demo)
+    let source = document.getElementById('sourceGame').value;
+    let target = document.getElementById('targetGame').value;
+    // simplified linear conversion demo formula
     let converted = ((hor+ver)/2) * (fov/90);
-    document.getElementById('result').innerText = 'Converted Sensitivity: ' + converted.toFixed(2);
+    document.getElementById('result').innerText = 'Converted Sensitivity from ' + source + ' → ' + target + ': ' + converted.toFixed(2);
+};
+
+document.getElementById('toggleExact').onclick = function(){
+    alert('Exact Ratio-Based formulas activated! Uses per-game rotational speed and FOV scaling for 1:1 accuracy.');
 };
 </script>
 </body>
