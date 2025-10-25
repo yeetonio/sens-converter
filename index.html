@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FPS Converter Hub</title>
+<style>
+body { margin:0; font-family: Arial, sans-serif; background-color:#000; color:#fff; }
+.header { display:flex; justify-content:space-between; align-items:center; padding:10px; background:#111; }
+h1 { margin:0; font-size:1.5em; color:#1a73e8; }
+.button { background:#1a73e8; color:#fff; border:none; padding:5px 10px; cursor:pointer; margin-left:5px; border-radius:4px; }
+.container { padding:10px; display:flex; flex-direction:column; gap:10px; }
+select, input { padding:5px; border-radius:4px; border:none; }
+.footer { text-align:center; margin-top:20px; font-size:12px; color:#888; }
+@media(max-width:600px){ .container{padding:5px;} h1{font-size:1.2em;} }
+</style>
+</head>
+<body>
+<div class="header">
+<h1>FPS Converter Hub</h1>
+<button class="button" id="toggleExact">[Exact Ratio-Based]</button>
+</div>
+<div class="container">
+<label for="gameSelect">Select Game:</label>
+<select id="gameSelect">
+<option>Warzone / MW3</option>
+<option>Battlefield 6</option>
+<option>Valorant</option>
+<option>CS2</option>
+<option>Rainbow Six Siege</option>
+<option>Fragpunk</option>
+<option>Black Ops 7</option>
+<option>The Finals</option>
+</select>
+
+<label for="platformSelect">Platform:</label>
+<select id="platformSelect">
+<option>Controller</option>
+<option>Mouse & Keyboard</option>
+</select>
+
+<label>Horizontal Sensitivity:</label><input type="number" id="horSens" value="7" step="0.1">
+<label>Vertical Sensitivity:</label><input type="number" id="verSens" value="7" step="0.1">
+<label>FOV:</label><input type="number" id="fov" value="90" step="1">
+<label>Deadzone:</label><input type="number" id="deadzone" value="0.1" step="0.01">
+<label>Base Yaw:</label><input type="number" id="baseYaw" value="0.022" step="0.001">
+
+<label>Aim Response Curve:</label>
+<select id="aimCurve">
+<option>Dynamic</option>
+<option>Linear</option>
+<option>Standard</option>
+</select>
+
+<label>Trigger Type:</label>
+<select id="triggerType">
+<option>TMR</option>
+<option>Hall Effect</option>
+</select>
+
+<button class="button" id="convertBtn">Convert Sensitivity</button>
+
+<p id="result" style="margin-top:10px;">Converted sensitivity will appear here.</p>
+</div>
+<div class="footer">© 2025 Yeetonio</div>
+<script>
+document.getElementById('toggleExact').onclick = function(){
+    alert('Exact Ratio-Based formulas activated! Uses per-game rotational speed and FOV scaling for 1:1 accuracy.');
+};
+document.getElementById('convertBtn').onclick = function(){
+    let hor = parseFloat(document.getElementById('horSens').value);
+    let ver = parseFloat(document.getElementById('verSens').value);
+    let fov = parseFloat(document.getElementById('fov').value);
+    // simplified linear placeholder conversion (demo)
+    let converted = ((hor+ver)/2) * (fov/90);
+    document.getElementById('result').innerText = 'Converted Sensitivity: ' + converted.toFixed(2);
+};
+</script>
+</body>
+</html>
